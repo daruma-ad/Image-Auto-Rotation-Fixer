@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image Orienter & Resizer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script type="module" crossorigin src="/Image-Auto-Rotation-Fixer/assets/index-0SJxo8IB.js"></script>
+  <link rel="stylesheet" crossorigin href="/Image-Auto-Rotation-Fixer/assets/index-Dq2KGErF.css">
+</head>
+
+<body>
+  <div id="app" class="app-container">
+    <header class="app-header">
+      <h1>Image Orienter <span class="accent">& Resizer</span></h1>
+      <p class="subtitle">Fix EXIF rotation and resize images for the web instantly.</p>
+    </header>
+
+    <main class="app-main">
+      <!-- Drop Zone -->
+      <div id="drop-zone" class="drop-zone">
+        <div class="drop-content">
+          <div class="icon-upload"></div>
+          <h3>Drag & Drop images here</h3>
+          <p>or click to select files</p>
+          <input type="file" id="file-input" multiple accept="image/jpeg, image/png" hidden>
+        </div>
+      </div>
+
+      <!-- Editor Section (Hidden by default) -->
+      <section id="editor-section" class="editor-section hidden">
+
+        <!-- Sidebar: Global Controls -->
+        <aside class="controls-sidebar">
+          <div class="control-group">
+            <h4>Rotation Fix</h4>
+            <div class="toggle-group">
+              <label class="toggle-switch">
+                <input type="checkbox" id="auto-fix-toggle" checked>
+                <span class="slider"></span>
+                <span class="label-text">Auto-fix EXIF</span>
+              </label>
+            </div>
+            <div class="manual-rotate-controls">
+              <button id="rotate-left-btn" class="icon-btn" title="Rotate Left">↺</button>
+              <button id="rotate-right-btn" class="icon-btn" title="Rotate Right">↻</button>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <h4>Resize Options</h4>
+            <select id="resize-mode" class="styled-select">
+              <option value="none">No Resize</option>
+              <option value="width">Width Only</option>
+              <option value="height">Height Only</option>
+              <option value="both-fit">Both (Fit)</option>
+              <option value="both-force">Both (Force)</option>
+            </select>
+
+            <div id="resize-inputs" class="input-row hidden">
+              <div class="input-wrapper">
+                <label for="width-input">W</label>
+                <input type="number" id="width-input" placeholder="px">
+              </div>
+              <div class="input-wrapper">
+                <label for="height-input">H</label>
+                <input type="number" id="height-input" placeholder="px">
+              </div>
+            </div>
+
+            <!-- File Size Cap Input -->
+            <div class="control-group" style="margin-top: 1.5rem;">
+              <h4>Max File Size (KB)</h4>
+              <input type="number" id="max-size-input" class="styled-select" placeholder="e.g. 500 (Optional)">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <h4>Export</h4>
+            <div class="toggle-group">
+              <label class="toggle-switch">
+                <input type="checkbox" id="strip-exif-toggle" checked>
+                <span class="slider"></span>
+                <span class="label-text">Remove EXIF</span>
+              </label>
+            </div>
+            <button id="download-btn" class="primary-btn">Download All</button>
+          </div>
+        </aside>
+
+        <!-- Main Preview Area -->
+        <div class="preview-area">
+          <div id="image-list" class="image-list">
+            <!-- Image Cards will be injected here -->
+          </div>
+        </div>
+
+      </section>
+    </main>
+  </div>
+</body>
+
+</html>
