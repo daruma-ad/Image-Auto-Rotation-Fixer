@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <script type="module" crossorigin src="/Image-Auto-Rotation-Fixer/assets/index-0SJxo8IB.js"></script>
-  <link rel="stylesheet" crossorigin href="/Image-Auto-Rotation-Fixer/assets/index-Dq2KGErF.css">
+  <script type="module" crossorigin src="/Image-Auto-Rotation-Fixer/assets/index-BjxUReMK.js"></script>
+  <link rel="stylesheet" crossorigin href="/Image-Auto-Rotation-Fixer/assets/index-C6_lUdrj.css">
 </head>
 
 <body>
@@ -70,12 +70,13 @@
                 <input type="number" id="height-input" placeholder="px">
               </div>
             </div>
+          </div>
 
-            <!-- File Size Cap Input -->
-            <div class="control-group" style="margin-top: 1.5rem;">
-              <h4>Max File Size (KB)</h4>
-              <input type="number" id="max-size-input" class="styled-select" placeholder="e.g. 500 (Optional)">
-            </div>
+          <!-- File Size Cap Input -->
+          <div class="control-group">
+            <h4>Max File Size (KB)</h4>
+            <input type="number" id="max-size-input" class="styled-select" placeholder="e.g. 500 (Optional)">
+            <p class="input-hint">Target size for JPEGs. PNGs will be converted.</p>
           </div>
 
           <div class="control-group">
@@ -87,6 +88,16 @@
                 <span class="label-text">Remove EXIF</span>
               </label>
             </div>
+
+            <div class="control-group" style="margin-top: 1rem;">
+              <h4>Format</h4>
+              <select id="format-select" class="styled-select">
+                <option value="auto">Auto (Smart)</option>
+                <option value="jpeg">Force JPEG</option>
+                <option value="png">Force PNG</option>
+              </select>
+            </div>
+
             <button id="download-btn" class="primary-btn">Download All</button>
           </div>
         </aside>
