@@ -217,8 +217,9 @@ export class AppController {
                 });
 
                 // Add to zip
-                // Determine extension based on actual mimeType
-                const newExt = mimeType === 'image/png' ? 'png' : 'jpg';
+                // Determine extension based on actual mimeType and original extension
+                const origExt = item.file.name.split('.').pop().toLowerCase();
+                const newExt = mimeType === 'image/png' ? 'png' : (origExt === 'jpeg' ? 'jpeg' : 'jpg');
                 const nameParts = item.file.name.split('.');
                 nameParts.pop(); // Remove old extension
                 const base = nameParts.join('.');
