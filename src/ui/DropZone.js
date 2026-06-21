@@ -35,8 +35,10 @@ export class DropZone {
             e.preventDefault();
             this.element.classList.remove('drag-over');
             if (e.dataTransfer.files.length) {
-                // filter images
-                const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+                // filter images by type or extension (fallback for Windows MIME mapping issues)
+                const files = Array.from(e.dataTransfer.files).filter(f => 
+                    f.type.startsWith('image/') || /\.(jpe?g|png)$/i.test(f.name)
+                );
                 this.onFilesSelected(files);
             }
         });

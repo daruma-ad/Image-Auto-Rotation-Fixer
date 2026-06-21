@@ -201,9 +201,12 @@ export class AppController {
         try {
             const zip = new JSZip();
 
+            let lastProcessedBlob = null;
+            let lastProcessedName = "";
+
             // Process all images
             for (const item of this.files) {
-                const processedBlob = await ImageProcessor.process(item.file, {
+                const { blob: processedBlob, mimeType } = await ImageProcessor.process(item.file, {
                     orientation: this.state.autoFix ? item.originalOrientation : 1, // If autoFix OFF, treat as 1 (no rotation)
                     manualRotation: this.state.manualRotation,
                     resizeMode: this.state.resizeMode,
@@ -214,20 +217,21 @@ export class AppController {
                 });
 
                 // Add to zip
-                // Rename logic? Append _fixed
+                // Determine extension based on actual mimeType
+                const newExt = mimeType === 'image/png' ? 'png' : 'jpg';
                 const nameParts = item.file.name.split('.');
-                const ext = nameParts.pop();
+                nameParts.pop(); // Remove old extension
                 const base = nameParts.join('.');
-                const newName = `${base}_fixed.${ext}`;
+                const newName = `${base}_fixed.${newExt}`;
 
                 zip.file(newName, processedBlob);
+                lastProcessedBlob = processedBlob;
+                lastProcessedName = newName;
             }
 
             if (this.files.length === 1) {
-                // Single file download
-                const item = this.files[0];
-                const content = await zip.file(new RegExp(".*")).pop().async("blob"); // get the only file
-                this.saveBlob(content, Object.keys(zip.files)[0]);
+                // Single file download directly
+                this.saveBlob(lastProcessedBlob, lastProcessedName);
             } else {
                 // Zip download
                 const content = await zip.generateAsync({ type: 'blob' });

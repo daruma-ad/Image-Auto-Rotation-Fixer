@@ -211,7 +211,7 @@ export class ImageProcessor {
       // File size limit ONLY works for JPEG
       if (!options.maxSizeBytes || mimeType === 'image/png') {
         const blob = await getBlob(quality);
-        resolve(blob);
+        resolve({ blob, mimeType });
         return;
       }
 
@@ -226,7 +226,7 @@ export class ImageProcessor {
       console.log(`Initial size at max quality: ${(maxBlob.size / 1024).toFixed(2)} KB (Target: ${(options.maxSizeBytes / 1024).toFixed(2)} KB)`);
 
       if (maxBlob.size <= options.maxSizeBytes) {
-        resolve(maxBlob);
+        resolve({ blob: maxBlob, mimeType });
         return;
       }
 
@@ -246,11 +246,11 @@ export class ImageProcessor {
 
       if (bestBlob) {
         console.log(`Target size met: ${(bestBlob.size / 1024).toFixed(2)} KB`);
-        resolve(bestBlob);
+        resolve({ blob: bestBlob, mimeType });
       } else {
         const minBlob = await getBlob(0.01);
         console.log(`Coult not meet target size. Returning smallest version: ${(minBlob.size / 1024).toFixed(2)} KB`);
-        resolve(minBlob); // Return lowest quality if fails
+        resolve({ blob: minBlob, mimeType }); // Return lowest quality if fails
       }
     });
   }
